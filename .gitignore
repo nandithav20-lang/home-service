@@ -1,0 +1,23 @@
+# ========================================================
+# Home Service App - .gitignore
+# ========================================================
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary & Log files
+*.log
+error_log
+debug.log
+
+# Composer / Vendor
+/vendor/
+composer.phar
