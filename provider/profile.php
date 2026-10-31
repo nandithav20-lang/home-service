@@ -55,15 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$pageGreeting = "Provider Profile";
+$pageSubtitle = "Manage your trade category, base hourly rate, bio, and contact details";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="max-width: 680px; margin: 1.5rem auto;">
+<div style="max-width: 680px; margin: 1rem auto;">
     <div class="card" style="padding: 2.25rem;">
-        <div style="margin-bottom: 2rem;">
-            <h2>Manage Professional Profile</h2>
-            <p style="color: var(--gray-500);">Keep your operating charges, experience, and contact information up-to-date</p>
-        </div>
 
         <?php if ($errorMsg): ?>
             <div class="alert alert-danger"><?php echo htmlspecialchars($errorMsg); ?></div>

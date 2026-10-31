@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $providerId = (int)($_POST['provider_id'] ?? 0);
     $newStatus  = $_POST['status'] ?? '';
 
-    if ($providerId > 0 && in_array($newStatus, ['approved', 'pending', 'rejected'])) {
+    if ($providerId > 0 && in_array($newStatus, ['approved', 'pending', 'rejected', 'suspended'])) {
         $uStmt = $pdo->prepare("UPDATE providers SET status = ? WHERE id = ?");
         $uStmt->execute([$newStatus, $providerId]);
         setFlash('success', "Provider status updated to " . ucfirst($newStatus) . ".");
@@ -29,15 +29,17 @@ $providers = $pdo->query("SELECT p.*, u.name, u.email, u.phone, u.city, u.pincod
                           GROUP BY p.id
                           ORDER BY p.id ASC")->fetchAll();
 
+$pageGreeting = "Service Providers";
+$pageSubtitle = "Review technician profiles, trade categories, rates, and approval status";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Service Providers Directory & Verification</h2>
-        <p style="color: var(--gray-500);">Review technician applications, trade categories, rates, and approval status</p>
-    </div>
-    <div style="font-weight: 700; color: var(--primary);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+    <a href="safety.php" class="btn btn-primary btn-sm" style="background: #dc2626; border-color: #dc2626;">
+        <i class="fa-solid fa-shield-halved"></i> Safety & Verification Center
+    </a>
+    <div style="font-weight: 700; color: var(--primary); font-size: 0.95rem;">
         Total Providers: <?php echo count($providers); ?>
     </div>
 </div>

@@ -1,0 +1,369 @@
+/* ========================================================
+   Smart Customer Safety & Emergency Protection Styles
+   File: assets/css/safety.css
+   Color Theme: Professional Light Blue & White (matching style.css)
+   ======================================================== */
+
+:root {
+  --safety-blue: #0284c7;
+  --safety-blue-light: #f0f9ff;
+  --safety-blue-border: #bae6fd;
+  --safety-emergency: #dc2626;
+  --safety-emergency-dark: #b91c1c;
+  --safety-emergency-light: #fef2f2;
+  --safety-emergency-border: #fecaca;
+  --safety-silent: #334155;
+  --safety-silent-light: #f1f5f9;
+  --safety-verified: #059669;
+  --safety-verified-light: #ecfdf5;
+  --safety-verified-border: #a7f3d0;
+  --safety-warning: #d97706;
+  --safety-warning-light: #fffbeb;
+}
+
+/* --------------------------------------------------------
+   Verified Badges
+   -------------------------------------------------------- */
+.safety-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+}
+
+.safety-badge.badge-verified {
+  background: var(--safety-verified-light);
+  color: #065f46;
+  border: 1px solid var(--safety-verified-border);
+}
+
+.safety-badge.badge-pending {
+  background: var(--safety-warning-light);
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.safety-badge.badge-suspended {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.safety-badge.badge-rejected {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+/* --------------------------------------------------------
+   SafeVisit Hero Card
+   -------------------------------------------------------- */
+.safevisit-hero {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid var(--safety-blue-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.safevisit-hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.safevisit-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.safevisit-icon-shield {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #0284c7;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+
+/* --------------------------------------------------------
+   Emergency SOS Actions
+   -------------------------------------------------------- */
+.sos-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 640px) {
+  .sos-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-sos-emergency {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-sos-emergency:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45);
+}
+
+.btn-sos-silent {
+  background: #334155;
+  color: #f8fafc !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #475569;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-sos-silent:hover {
+  background: #1e293b;
+  border-color: #334155;
+  transform: translateY(-2px);
+}
+
+.btn-call-112 {
+  background: #ffffff;
+  color: #dc2626 !important;
+  border: 2px solid #dc2626;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-call-112:hover {
+  background: #dc2626;
+  color: #ffffff !important;
+}
+
+/* --------------------------------------------------------
+   OTP Display Cards
+   -------------------------------------------------------- */
+.otp-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .otp-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.otp-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.25rem;
+  position: relative;
+}
+
+.otp-box.verified {
+  border-color: var(--safety-verified-border);
+  background: #f8fafc;
+}
+
+.otp-digits {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: #0369a1;
+  background: #f0f9ff;
+  border: 1px dashed #7dd3fc;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+/* --------------------------------------------------------
+   Check-In Timer Widget
+   -------------------------------------------------------- */
+.checkin-widget {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.checkin-status-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.checkin-status-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.btn-safe-checkin {
+  background: #0284c7;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-safe-checkin:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------
+   Location Sharing Toggle
+   -------------------------------------------------------- */
+.location-sharing-panel {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.location-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.location-indicator.active {
+  color: #059669;
+}
+
+.location-indicator.inactive {
+  color: #64748b;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #059669;
+  display: inline-block;
+  animation: safetyPulse 2s infinite;
+}
+
+@keyframes safetyPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(5, 150, 105, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+}
+
+/* --------------------------------------------------------
+   Delivery Status Badges
+   -------------------------------------------------------- */
+.delivery-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.delivery-simulated {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.delivery-delivered {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.delivery-failed {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* --------------------------------------------------------
+   Safety Disclaimer Card
+   -------------------------------------------------------- */
+.safety-disclaimer-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #0284c7;
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-top: 1.5rem;
+}
+

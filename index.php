@@ -23,29 +23,32 @@ try {
 } catch (Exception $e) {}
 ?>
 
-<!-- Hero Banner -->
-<div style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #fff; padding: 4rem 2rem; border-radius: var(--radius-lg); margin-bottom: 3rem; text-align: center; box-shadow: var(--shadow-lg);">
-    <div style="max-width: 750px; margin: 0 auto;">
-        <span style="display:inline-block; padding: 6px 14px; background: rgba(255,255,255,0.15); border-radius: 999px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">
-            ⚡ Verified Local Experts At Your Doorstep
+<!-- Light Hero Banner matching reference style -->
+<div style="background: linear-gradient(135deg, #e8f2fe 0%, #edf5fc 100%); border: 1px solid #dce8f5; padding: 3.5rem 2.5rem; border-radius: var(--radius-lg); margin-bottom: 3rem; text-align: center; box-shadow: var(--shadow-xs);">
+    <div style="max-width: 720px; margin: 0 auto;">
+        <span style="display:inline-flex; align-items:center; gap:6px; padding: 5px 14px; background: #ffffff; border: 1px solid #cfe0f2; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(15,23,42,0.04);">
+            <i class="fa-solid fa-shield-halved"></i> Verified Local Experts At Your Doorstep
         </span>
-        <h1 style="color: #fff; font-size: 2.75rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2;">
+        <h1 style="color: var(--text-dark); font-size: 2.6rem; font-weight: 800; margin-bottom: 0.85rem; line-height: 1.2; letter-spacing: -0.5px;">
             Reliable Home Services, Booked In Minutes
         </h1>
-        <p style="color: #c7d2fe; font-size: 1.15rem; margin-bottom: 2rem;">
-            From certified electricians and plumbers to deep cleaners and carpenters. Transparent pricing, verified technicians, and hassle-free booking.
+        <p style="color: var(--text-body); font-size: 1.05rem; margin-bottom: 2rem; line-height: 1.6;">
+            From certified electricians and plumbers to deep cleaners and carpenters. Transparent pricing, verified technicians, and guaranteed satisfaction.
         </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-            <a href="customer/services.php" class="btn btn-primary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+        <div style="display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap;">
+            <a href="customer/services.php" class="btn btn-primary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
                 <i class="fa-solid fa-magnifying-glass"></i> Explore All Services
             </a>
             <?php if (!$currentUser): ?>
-                <a href="auth/register.php" class="btn btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+                <a href="auth/register.php" class="btn btn-secondary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
                     <i class="fa-solid fa-user-plus"></i> Customer Sign Up
                 </a>
+                <a href="auth/provider-register.php" class="btn btn-outline" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
+                    <i class="fa-solid fa-briefcase"></i> Join as Service Pro
+                </a>
             <?php else: ?>
-                <a href="customer/dashboard.php" class="btn btn-secondary" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
-                    <i class="fa-solid fa-gauge-high"></i> Go to Dashboard
+                <a href="<?php echo $role; ?>/dashboard.php" class="btn btn-secondary" style="padding: 0.75rem 1.75rem; font-size: 0.95rem;">
+                    <i class="fa-solid fa-table-cells-large"></i> Go to Dashboard
                 </a>
             <?php endif; ?>
         </div>
@@ -55,29 +58,29 @@ try {
 <!-- Service Categories Section -->
 <section style="margin-bottom: 3.5rem;">
     <div style="text-align: center; margin-bottom: 2rem;">
-        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Browse By Category</h2>
-        <p style="color: var(--gray-500);">Select a specialized trade to find certified technicians</p>
+        <h2 style="font-size: 1.85rem; margin-bottom: 0.4rem; color: var(--text-dark);">Browse By Trade Category</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Select a specialized trade to find certified technicians</p>
     </div>
 
     <div class="grid grid-3">
         <?php 
         $iconMap = [
-            'Plumbing' => 'fa-faucet-drip',
-            'Electrical' => 'fa-bolt-lightning',
-            'Cleaning' => 'fa-broom',
-            'Carpentry' => 'fa-hammer',
-            'Painting' => 'fa-paint-roller',
-            'Appliance Repair' => 'fa-wrench'
+            'Plumbing' => ['icon' => 'fa-faucet-drip', 'color' => '#2563eb', 'bg' => '#eff6ff'],
+            'Electrical' => ['icon' => 'fa-bolt', 'color' => '#d97706', 'bg' => '#fffbeb'],
+            'Cleaning' => ['icon' => 'fa-broom', 'color' => '#0d9488', 'bg' => '#f0fdfa'],
+            'Carpentry' => ['icon' => 'fa-hammer', 'color' => '#ea580c', 'bg' => '#fff7ed'],
+            'Painting' => ['icon' => 'fa-paint-roller', 'color' => '#db2777', 'bg' => '#fdf2f8'],
+            'Appliance Repair' => ['icon' => 'fa-screwdriver-wrench', 'color' => '#7c3aed', 'bg' => '#f5f3ff']
         ];
         foreach ($categories as $cat): 
-            $icon = $iconMap[$cat['name']] ?? 'fa-screwdriver-wrench';
+            $meta = $iconMap[$cat['name']] ?? ['icon' => 'fa-screwdriver-wrench', 'color' => '#2563eb', 'bg' => '#eff6ff'];
         ?>
-            <a href="customer/services.php?category=<?php echo $cat['id']; ?>" class="cat-card">
-                <div class="cat-card-icon">
-                    <i class="fa-solid <?php echo $icon; ?>"></i>
+            <a href="customer/services.php?category=<?php echo $cat['id']; ?>" class="card" style="text-decoration:none; display:flex; flex-direction:column; gap:8px;">
+                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: <?php echo $meta['bg']; ?>; color: <?php echo $meta['color']; ?>; display:flex; align-items:center; justify-content:center; font-size: 1.25rem;">
+                    <i class="fa-solid <?php echo $meta['icon']; ?>"></i>
                 </div>
-                <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--dark);"><?php echo htmlspecialchars($cat['name']); ?></h3>
-                <p style="color: var(--gray-500); font-size: 0.9rem;"><?php echo htmlspecialchars($cat['description']); ?></p>
+                <h3 style="font-size: 1.15rem; color: var(--text-dark);"><?php echo htmlspecialchars($cat['name']); ?></h3>
+                <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5;"><?php echo htmlspecialchars($cat['description']); ?></p>
             </a>
         <?php endforeach; ?>
     </div>
@@ -85,33 +88,38 @@ try {
 
 <!-- Popular Services Grid -->
 <section style="margin-bottom: 3.5rem;">
-    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.75rem; flex-wrap: wrap; gap: 1rem;">
         <div>
-            <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Trending Household Services</h2>
-            <p style="color: var(--gray-500);">Popular home repairs booked by residents in Bengaluru, Mysuru, & nearby</p>
+            <h2 style="font-size: 1.85rem; margin-bottom: 0.35rem; color: var(--text-dark);">Trending Household Services</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">Popular home repairs booked by residents across Karnataka</p>
         </div>
-        <a href="customer/services.php" class="btn btn-outline btn-sm">View All Services <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="customer/services.php" class="btn btn-outline btn-sm">View All Services <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i></a>
     </div>
 
     <div class="grid grid-3">
         <?php foreach ($services as $srv): ?>
             <div class="service-card">
                 <div>
-                    <span class="badge badge-accepted" style="margin-bottom: 0.75rem;">
-                        <?php echo htmlspecialchars($srv['category_name']); ?>
-                    </span>
-                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;"><?php echo htmlspecialchars($srv['name']); ?></h3>
-                    <p style="color: var(--gray-500); font-size: 0.9rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                        <span class="badge badge-accepted"><?php echo htmlspecialchars($srv['category_name']); ?></span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">
+                            <i class="fa-regular fa-clock"></i> ~<?php echo $srv['duration_mins']; ?> mins
+                        </span>
+                    </div>
+                    <h3 style="font-size: 1.15rem; margin-bottom: 0.4rem; color: var(--text-dark);">
+                        <?php echo htmlspecialchars($srv['name']); ?>
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.25rem; line-height: 1.5;">
                         <?php echo htmlspecialchars($srv['description']); ?>
                     </p>
                 </div>
                 <div>
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; border-top: 1px dashed var(--border-light); padding-top: 0.75rem;">
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">Standard Rate:</span>
                         <span class="service-card-price"><?php echo formatPrice($srv['price']); ?></span>
-                        <span style="color: var(--gray-500); font-size: 0.85rem;"><i class="fa-regular fa-clock"></i> ~<?php echo $srv['duration_mins']; ?> mins</span>
                     </div>
                     <a href="customer/book.php?service_id=<?php echo $srv['id']; ?>" class="btn btn-primary btn-block">
-                        <i class="fa-solid fa-calendar-check"></i> Book Now
+                        <i class="fa-solid fa-calendar-plus"></i> Book Service
                     </a>
                 </div>
             </div>
@@ -119,33 +127,29 @@ try {
     </div>
 </section>
 
-<!-- How It Works Section -->
-<section style="background: var(--white); padding: 3rem 2rem; border-radius: var(--radius-md); border: 1px solid var(--gray-200); margin-bottom: 2rem;">
-    <div style="text-align: center; margin-bottom: 2.5rem;">
-        <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">How HomeServe Works</h2>
-        <p style="color: var(--gray-500);">Quick, transparent, and seamless 4-step process</p>
-    </div>
-
-    <div class="grid grid-4" style="text-align: center;">
+<!-- Trust & Verification Highlights -->
+<section style="background: #ffffff; border: 1px solid var(--border-card); border-radius: var(--radius-lg); padding: 2.5rem; margin-bottom: 2rem;">
+    <div class="grid grid-3" style="text-align: center;">
         <div>
-            <div style="width: 56px; height: 56px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 800; margin: 0 auto 1rem;">1</div>
-            <h4 style="margin-bottom: 0.5rem;">Select Service</h4>
-            <p style="color: var(--gray-500); font-size: 0.88rem;">Browse plumbing, electrical, cleaning and pick what you need.</p>
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: #eff6ff; color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin: 0 auto 0.85rem;">
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px; color: var(--text-dark);">Verified Professionals</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Background-checked and certified technicians for safety and peace of mind.</p>
         </div>
         <div>
-            <div style="width: 56px; height: 56px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 800; margin: 0 auto 1rem;">2</div>
-            <h4 style="margin-bottom: 0.5rem;">Choose Schedule</h4>
-            <p style="color: var(--gray-500); font-size: 0.88rem;">Pick a convenient date, time slot, and provide your home address.</p>
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: #ecfdf5; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin: 0 auto 0.85rem;">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+            </div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px; color: var(--text-dark);">Transparent Pricing</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Upfront service rates with zero hidden inspection surprises.</p>
         </div>
         <div>
-            <div style="width: 56px; height: 56px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 800; margin: 0 auto 1rem;">3</div>
-            <h4 style="margin-bottom: 0.5rem;">Expert Dispatched</h4>
-            <p style="color: var(--gray-500); font-size: 0.88rem;">Admin assigns a verified technician who arrives on time.</p>
-        </div>
-        <div>
-            <div style="width: 56px; height: 56px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 800; margin: 0 auto 1rem;">4</div>
-            <h4 style="margin-bottom: 0.5rem;">Job Done & Review</h4>
-            <p style="color: var(--gray-500); font-size: 0.88rem;">Inspect completed work, track status, and leave your rating.</p>
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: #fffbeb; color: #d97706; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; margin: 0 auto 0.85rem;">
+                <i class="fa-solid fa-thumbs-up"></i>
+            </div>
+            <h4 style="font-size: 1.05rem; margin-bottom: 4px; color: var(--text-dark);">Quality Guaranteed</h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">30-day service warranty on all plumbing, electrical and repairs.</p>
         </div>
     </div>
 </section>

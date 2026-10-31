@@ -47,15 +47,14 @@ $services = $pdo->query("SELECT s.*, c.name as category_name
                          JOIN service_categories c ON s.category_id = c.id 
                          ORDER BY c.name ASC, s.name ASC")->fetchAll();
 
+$pageGreeting = "Services Catalog";
+$pageSubtitle = "Configure pricing, durations and catalog service items";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Manage Services Catalog</h2>
-        <p style="color: var(--gray-500);">Add, edit, and adjust pricing for available household trades and services</p>
-    </div>
-    <a href="#add-service-form" class="btn btn-primary">
+<div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.25rem;">
+    <a href="#add-service-form" class="btn btn-primary btn-sm">
         <i class="fa-solid fa-plus"></i> Add New Service
     </a>
 </div>

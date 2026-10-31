@@ -34,15 +34,14 @@ $stmt = $pdo->prepare($query);
 $stmt->execute($params);
 $requests = $stmt->fetchAll();
 
+$pageGreeting = "Job Requests";
+$pageSubtitle = "All customer jobs dispatched and assigned to your schedule";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Assigned Customer Requests</h2>
-        <p style="color: var(--gray-500);">All customer jobs dispatched and assigned to you</p>
-    </div>
-    <a href="dashboard.php" class="btn btn-secondary">
+<div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.25rem;">
+    <a href="dashboard.php" class="btn btn-secondary btn-sm">
         <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
     </a>
 </div>

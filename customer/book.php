@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($success) {
                 $newBookingId = $pdo->lastInsertId();
-                setFlash('success', "Service booking placed successfully! Request ID: #BK-" . str_pad($newBookingId, 4, '0', STR_PAD_LEFT) . ". Admin is reviewing your request.");
+                setFlash('success', "Service booking placed successfully! Request ID: #BK-" . str_pad($newBookingId, 4, '0', STR_PAD_LEFT) . ". Once confirmed by a verified technician, your SafeVisit OTP and check-in tools will activate.");
                 header("Location: my-bookings.php");
                 exit;
             } else {

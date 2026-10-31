@@ -1,16 +1,63 @@
 // ========================================================
-// Home Service App - Client JavaScript
+// HomeService App - Client JavaScript & Dashboard Logic
 // ========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Minimum date constraint for booking (Cannot select past date)
+    // 1. Mobile Sidebar Toggle & Backdrop
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const appSidebar = document.querySelector('.app-sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+
+    function openSidebar() {
+        if (appSidebar) appSidebar.classList.add('show');
+        if (sidebarBackdrop) sidebarBackdrop.classList.add('show');
+    }
+
+    function closeSidebar() {
+        if (appSidebar) appSidebar.classList.remove('show');
+        if (sidebarBackdrop) sidebarBackdrop.classList.remove('show');
+    }
+
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (appSidebar && appSidebar.classList.contains('show')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        });
+    }
+
+    if (sidebarBackdrop) {
+        sidebarBackdrop.addEventListener('click', closeSidebar);
+    }
+
+    // 2. User Profile Dropdown Menu
+    const userProfileBtn = document.getElementById('user-profile-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+
+    if (userProfileBtn && userDropdown) {
+        userProfileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!userProfileBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
+    }
+
+    // 3. Minimum date constraint for booking (Cannot select past date)
     const bookingDateInput = document.getElementById('booking_date');
     if (bookingDateInput) {
         const today = new Date().toISOString().split('T')[0];
         bookingDateInput.min = today;
     }
 
-    // 2. Real-time Service Search & Category Filter
+    // 4. Real-time Service Search & Category Filter
     const searchInput = document.getElementById('service-search');
     const categoryFilter = document.getElementById('category-filter');
     const serviceCards = document.querySelectorAll('.service-item');
@@ -27,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const catId = card.getAttribute('data-category') || '';
 
             const matchesQuery = title.includes(query) || desc.includes(query);
-            const matchesCat = (selectedCat === 'all' || catId === selectedCat);
+            const matchesCat = (selectedCat === 'all' || selectedCat === '' || catId === selectedCat);
 
             if (matchesQuery && matchesCat) {
                 card.style.display = 'flex';
@@ -50,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryFilter.addEventListener('change', filterServices);
     }
 
-    // 3. Form Validation for Phone (10 digits) and Pincode (6 digits)
+    // 5. Form Validation for Phone (10 digits) and Pincode (6 digits)
     const formsWithValidation = document.querySelectorAll('form[data-validate="true"]');
     formsWithValidation.forEach(form => {
         form.addEventListener('submit', (e) => {
@@ -73,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Interactive Star Rating Selector
+    // 6. Interactive Star Rating Selector
     const starInputs = document.querySelectorAll('.star-picker input[type="radio"]');
     if (starInputs.length) {
         const starLabels = document.querySelectorAll('.star-picker label');

@@ -35,15 +35,14 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $customers = $stmt->fetchAll();
 
+$pageGreeting = "Customer Accounts";
+$pageSubtitle = "Manage registered customer accounts, contact information and bookings history";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Registered Customer Directory</h2>
-        <p style="color: var(--gray-500);">Complete list of platform customer accounts and booking engagement</p>
-    </div>
-    <div style="font-weight: 700; color: var(--primary);">
+<div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.25rem;">
+    <div style="font-weight: 700; color: var(--primary); font-size: 0.95rem;">
         Total Customers: <?php echo count($customers); ?>
     </div>
 </div>

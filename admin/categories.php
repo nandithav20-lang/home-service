@@ -27,15 +27,14 @@ $categories = $pdo->query("SELECT c.*, COUNT(s.id) as service_count
                            LEFT JOIN services s ON c.id = s.category_id 
                            GROUP BY c.id ORDER BY c.name ASC")->fetchAll();
 
+$pageGreeting = "Service Categories";
+$pageSubtitle = "Organize services into trades and business categories";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Service Categories</h2>
-        <p style="color: var(--gray-500);">Organize services into trades and business categories</p>
-    </div>
-    <a href="services.php" class="btn btn-secondary">
+<div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 1.25rem;">
+    <a href="services.php" class="btn btn-secondary btn-sm">
         <i class="fa-solid fa-arrow-left"></i> Back to Services
     </a>
 </div>

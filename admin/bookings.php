@@ -1,6 +1,7 @@
 <?php
 $pageTitle = "Admin - Manage Bookings";
 require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../includes/safety_functions.php';
 requireRole('admin');
 
 $pdo = getDB();
@@ -13,6 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'assign_provider') {
         $providerId = (int)($_POST['provider_id'] ?? 0);
         $adminNotes = trim($_POST['admin_notes'] ?? '');
+
+        // Safety check: verify customer hasn't blocked this provider
+        $bCust = $pdo->prepare("SELECT customer_id FROM bookings WHERE id = ?");
+        $bCust->execute([$bookingId]);
+        $custRow = $bCust->fetch();
+        if ($custRow && isProviderBlockedByCustomer($custRow['customer_id'], $providerId)) {
+            setFlash('danger', "Safety Assignment Blocked: This provider was blocked by the customer in a confidential safety report.");
+            header("Location: bookings.php");
+            exit;
+        }
+
+        // Safety check: verify provider is approved
+        $pStatus = getProviderVerificationStatus($providerId);
+        if ($pStatus !== 'approved') {
+            setFlash('danger', "Assignment Blocked: Provider status is '{$pStatus}'. Only approved providers can be assigned to bookings.");
+            header("Location: bookings.php");
+            exit;
+        }
 
         if ($providerId > 0) {
             $uStmt = $pdo->prepare("UPDATE bookings SET provider_id = ?, status = 'Accepted', admin_notes = ? WHERE id = ?");
@@ -74,16 +93,12 @@ $stmt->execute($params);
 $bookings = $stmt->fetchAll();
 
 $assignModalBookingId = (int)($_GET['assign'] ?? 0);
+$pageGreeting = "Manage Bookings";
+$pageSubtitle = "Review customer requests, dispatch field technicians, and track work lifecycles";
 
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-        <h2>Booking Requests & Dispatch Management</h2>
-        <p style="color: var(--gray-500);">Review customer requests, dispatch field technicians, and track work lifecycles</p>
-    </div>
-</div>
 
 <!-- Filters and Search Bar -->
 <div class="card" style="padding: 1.25rem; margin-bottom: 1.5rem;">

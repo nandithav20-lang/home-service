@@ -65,15 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$pageGreeting = "My Profile";
+$pageSubtitle = "Update your contact details, service address and security password";
+
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
-<div style="max-width: 680px; margin: 2rem auto;">
+<div style="max-width: 680px; margin: 1rem auto;">
     <div class="card" style="padding: 2.25rem; margin-bottom: 2rem;">
-        <div style="margin-bottom: 2rem;">
-            <h2>Edit Customer Profile</h2>
-            <p style="color: var(--gray-500);">Update your name, contact phone number, default city, and pincode</p>
-        </div>
 
         <?php if (!empty($errors)): ?>
             <div class="alert alert-danger">

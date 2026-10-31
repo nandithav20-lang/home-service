@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 $userId = $pdo->lastInsertId();
 
-                $insProv = $pdo->prepare("INSERT INTO providers (user_id, category_id, experience_years, hourly_rate, bio, availability, status) VALUES (?, ?, ?, ?, ?, 'available', 'approved')");
+                $insProv = $pdo->prepare("INSERT INTO providers (user_id, category_id, experience_years, hourly_rate, bio, availability, status) VALUES (?, ?, ?, ?, ?, 'available', 'pending')");
                 $insProv->execute([
                     $userId,
                     $formData['category_id'],
@@ -89,8 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_role'] = 'provider';
                 $_SESSION['user_city'] = $formData['city'];
 
-                setFlash('success', "Welcome to the HomeServe Pro network! Your provider profile is ready.");
-                header("Location: ../provider/dashboard.php");
+                setFlash('info', "Welcome to HomeServe Pro! Your profile is pending verification. Please review and submit your government ID to begin accepting jobs.");
+                header("Location: ../provider/verification.php");
                 exit;
 
             } catch (Exception $e) {
